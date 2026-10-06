@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Portfolio of Edward Gaston, a finance student building AI and quantitative projects.">
+<style>[hidden]{display:none!important} img{max-width:100%} body{margin:0}</style>
+<title>Edward Gaston</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a prospectus. Left margin carries "Item" labels like a 10-K; content column to the right; ticker tape under the masthead. */
+:root {
+  --paper: #f3f5f4;
+  --sheet: #ffffff;
+  --ink: #14211f;
+  --muted: #5a6866;
+  --rule: #cfd8d5;
+  --accent: #0f6b5c;      /* ledger green-teal */
+  --accent-ink: #ffffff;
+  --up: #1b7f4b;
+  --tape: #14211f;
+  --tape-fg: #e7efec;
+
+  --display: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  --s1: .8125rem; --s2: 1rem; --s3: 1.1875rem; --s4: 1.5rem; --s5: 2.25rem; --s6: clamp(3rem, 9vw, 6.5rem);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1615; --sheet: #151e1d; --ink: #e4ecea; --muted: #93a39f; --rule: #2a3735;
+    --accent: #4fc2a9; --accent-ink: #0b1312; --up: #5fd08f; --tape: #e4ecea; --tape-fg: #0f1615;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f1615; --sheet: #151e1d; --ink: #e4ecea; --muted: #93a39f; --rule: #2a3735;
+  --accent: #4fc2a9; --accent-ink: #0b1312; --up: #5fd08f; --tape: #e4ecea; --tape-fg: #0f1615;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--body); font-size: var(--s2); line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+.wrap { max-width: 68rem; margin: 0 auto; padding-inline: 20px; }
+
+/* Draft note */
+.draft {
+  font-family: var(--mono); font-size: var(--s1); color: var(--muted);
+  border-bottom: 1px dashed var(--rule); padding-block: 8px;
+}
+.draft .wrap { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.draft button { font: inherit; background: none; border: 1px solid var(--rule); color: var(--muted); padding: 2px 10px; cursor: pointer; }
+
+/* Nav */
+nav.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--rule); }
+nav.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; flex-wrap: wrap; }
+.mark { font-family: var(--display); font-weight: 900; letter-spacing: -.02em; text-decoration: none; color: var(--ink); font-size: var(--s3); }
+.mark span { color: var(--accent); }
+nav.top ul { list-style: none; display: flex; gap: 18px; margin: 0; padding: 0; flex-wrap: wrap; }
+nav.top ul a { font-family: var(--mono); font-size: var(--s1); color: var(--muted); text-decoration: none; text-transform: uppercase; letter-spacing: .06em; }
+nav.top ul a:hover { color: var(--ink); }
+
+/* Masthead */
+header.mast { padding-block: clamp(40px, 8vw, 88px) 32px; }
+.eyebrow { font-family: var(--mono); font-size: var(--s1); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin: 0 0 16px; }
+h1 {
+  font-family: var(--display); font-weight: 900; font-size: var(--s6); line-height: .92;
+  letter-spacing: -.045em; margin: 0; text-wrap: balance;
+}
+h1 .sym { font-family: var(--mono); font-weight: 500; font-size: .22em; letter-spacing: .02em; vertical-align: top; color: var(--accent); margin-left: .3em; }
+.thesis { font-size: var(--s4); line-height: 1.35; max-width: 34ch; margin: 28px 0 0; text-wrap: balance; }
+.mast-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.btn {
+  font-family: var(--display); font-weight: 700; font-size: var(--s2); text-decoration: none;
+  padding: 12px 20px; border: 1.5px solid var(--ink); color: var(--ink); background: transparent; cursor: pointer;
+}
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn:hover { transform: translateY(-1px); }
+
+.facts {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 48px;
+  border-top: 2px solid var(--ink); border-bottom: 1px solid var(--rule);
+}
+.facts div { padding: 14px 16px 14px 0; display: grid; gap: 2px; }
+.facts div + div { padding-left: 16px; border-left: 1px solid var(--rule); }
+.facts dt { font-family: var(--mono); font-size: var(--s1); color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.facts dd { margin: 0; font-family: var(--display); font-weight: 700; font-size: var(--s3); }
+@media (max-width: 720px) {
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .facts div:nth-child(3) { padding-left: 0; border-left: 0; }
+  .facts div:nth-child(n+3) { border-top: 1px solid var(--rule); }
+}
+
+/* Ticker tape */
+.tape { background: var(--tape); color: var(--tape-fg); overflow: hidden; font-family: var(--mono); font-size: var(--s1); }
+.tape-track { display: flex; width: max-content; animation: tape 48s linear infinite; padding-block: 10px; }
+.tape-track span { padding-inline: 18px; white-space: nowrap; }
+.tape-track b { font-weight: 500; }
+.tape-track i { font-style: normal; color: var(--up); filter: brightness(1.25); }
+@keyframes tape { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .tape-track { animation: none; } }
+
+/* Sections as filing items */
+section.item { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 32px; padding-block: 64px; border-bottom: 1px solid var(--rule); }
+.item-label { font-family: var(--mono); font-size: var(--s1); color: var(--muted); text-transform: uppercase; letter-spacing: .08em; line-height: 1.5; }
+.item-label strong { display: block; color: var(--accent); font-weight: 500; }
+h2 { font-family: var(--display); font-weight: 900; font-size: var(--s5); letter-spacing: -.03em; line-height: 1.05; margin: 0 0 20px; text-wrap: balance; }
+h3 { font-family: var(--display); font-weight: 700; font-size: var(--s4); letter-spacing: -.02em; line-height: 1.15; margin: 0; text-wrap: balance; }
+.prose { max-width: 62ch; }
+.prose p { margin: 0 0 1em; }
+@media (max-width: 760px) {
+  section.item { grid-template-columns: minmax(0, 1fr); gap: 12px; padding-block: 48px; }
+}
+
+/* Projects */
+.filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+.chip {
+  font-family: var(--mono); font-size: var(--s1); padding: 6px 12px; border: 1px solid var(--rule);
+  background: var(--sheet); color: var(--muted); cursor: pointer; text-transform: uppercase; letter-spacing: .05em;
+}
+.chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.projects { display: grid; gap: 0; border-top: 2px solid var(--ink); }
+.proj { display: grid; grid-template-columns: minmax(0, 1fr) 15rem; gap: 28px; padding-block: 28px; border-bottom: 1px solid var(--rule); }
+.proj-meta { font-family: var(--mono); font-size: var(--s1); color: var(--muted); display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; text-transform: uppercase; letter-spacing: .05em; }
+.proj-meta .tag { color: var(--accent); }
+.proj p { margin: 10px 0 0; max-width: 60ch; }
+.proj ul.stack { list-style: none; padding: 0; margin: 14px 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.proj ul.stack li { font-family: var(--mono); font-size: .75rem; border: 1px solid var(--rule); padding: 2px 8px; color: var(--muted); }
+.kpis { display: grid; gap: 10px; align-content: start; font-family: var(--mono); font-size: var(--s1); }
+.kpis div { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px dotted var(--rule); padding-bottom: 6px; }
+.kpis dt { color: var(--muted); }
+.kpis dd { margin: 0; font-variant-numeric: tabular-nums; text-align: right; }
+.kpis .links { border: 0; justify-content: flex-start; gap: 14px; padding-top: 4px; }
+@media (max-width: 760px) { .proj { grid-template-columns: minmax(0, 1fr); gap: 16px; } }
+
+/* Experience timeline */
+.roles { display: grid; gap: 28px; }
+.role { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: 20px; }
+.role time { font-family: var(--mono); font-size: var(--s1); color: var(--muted); padding-top: 4px; font-variant-numeric: tabular-nums; }
+.role .org { font-family: var(--mono); font-size: var(--s1); color: var(--accent); text-transform: uppercase; letter-spacing: .05em; margin-top: 2px; }
+.role ul { margin: 10px 0 0; padding-left: 1.1em; max-width: 60ch; }
+.role li { margin-bottom: 4px; }
+@media (max-width: 560px) { .role { grid-template-columns: minmax(0, 1fr); gap: 4px; } }
+
+/* Education + skills */
+.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+@media (max-width: 760px) { .two { grid-template-columns: minmax(0, 1fr); } }
+.ledger { width: 100%; border-collapse: collapse; font-size: var(--s2); }
+.ledger th { font-family: var(--mono); font-size: var(--s1); font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; text-align: left; border-bottom: 2px solid var(--ink); padding: 0 8px 8px 0; }
+.ledger td { border-bottom: 1px solid var(--rule); padding: 9px 8px 9px 0; vertical-align: top; }
+.ledger td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; text-align: right; padding-right: 0; }
+.ledger th.num { text-align: right; padding-right: 0; }
+.table-wrap { overflow-x: auto; }
+.skillset { display: grid; gap: 20px; }
+.skillset h4 { font-family: var(--mono); font-size: var(--s1); font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin: 0 0 8px; }
+.skillset p { margin: 0; }
+.certs { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.certs li { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--rule); padding-bottom: 8px; }
+.certs span:last-child { font-family: var(--mono); font-size: var(--s1); color: var(--muted); white-space: nowrap; }
+
+/* Research / pitches */
+.pitches { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 860px) { .pitches { grid-template-columns: minmax(0, 1fr); } }
+.pitch { background: var(--sheet); border: 1px solid var(--rule); padding: 20px; display: grid; gap: 10px; align-content: start; }
+.pitch .call { font-family: var(--mono); font-size: var(--s1); display: flex; justify-content: space-between; gap: 8px; }
+.pitch .call b { font-weight: 500; color: var(--up); }
+.pitch h3 { font-size: var(--s3); }
+.pitch p { margin: 0; font-size: .9375rem; color: var(--muted); }
+
+/* Contact */
+.contact h2 { font-size: clamp(2rem, 6vw, 3.5rem); }
+.channels { display: grid; gap: 0; border-top: 2px solid var(--ink); max-width: 40rem; }
+.channels div { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-block: 12px; border-bottom: 1px solid var(--rule); flex-wrap: wrap; }
+.channels dt { font-family: var(--mono); font-size: var(--s1); color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.channels dd { margin: 0; display: flex; gap: 10px; align-items: center; min-width: 0; overflow-wrap: anywhere; }
+.copy { font-family: var(--mono); font-size: .75rem; border: 1px solid var(--rule); background: var(--sheet); color: var(--muted); padding: 3px 8px; cursor: pointer; }
+footer { font-family: var(--mono); font-size: var(--s1); color: var(--muted); padding-block: 32px; }
+footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+
+<div class="draft" id="draft">
+  <div class="wrap">
+    <span>Draft: anything in [brackets] is a placeholder to replace with your own details.</span>
+    <button type="button" id="hideDraft">Hide</button>
+  </div>
+</div>
+
+<nav class="top" aria-label="Sections">
+  <div class="wrap">
+    <a class="mark" href="#top">E<span>.</span>Gaston</a>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="mast" id="top">
+  <div class="wrap">
+    <p class="eyebrow">Finance student · AI &amp; quantitative projects</p>
+    <h1>Edward<br>Gaston<span class="sym">EGST</span></h1>
+    <p class="thesis">I study finance and build AI tools that make financial analysis faster, more rigorous, and easier to explain.</p>
+    <div class="mast-row">
+      <a class="btn primary" href="#projects">See projects</a>
+      <a class="btn" href="#contact">Get in touch</a>
+    </div>
+    <dl class="facts">
+      <div><dt>School</dt><dd>[University]</dd></div>
+      <div><dt>Major</dt><dd>B.S. Finance</dd></div>
+      <div><dt>Graduating</dt><dd>[May 2028]</dd></div>
+      <div><dt>Seeking</dt><dd>[Summer 2027 internship]</dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="tape" aria-label="Core skills">
+  <div class="tape-track" aria-hidden="true">
+    <span><b>DCF</b> <i>▲</i></span><span><b>LBO</b> <i>▲</i></span><span><b>COMPS</b> <i>▲</i></span><span><b>PYTHON</b> <i>▲</i></span><span><b>PANDAS</b> <i>▲</i></span><span><b>SQL</b> <i>▲</i></span><span><b>EXCEL / VBA</b> <i>▲</i></span><span><b>LLM APPS</b> <i>▲</i></span><span><b>RAG</b> <i>▲</i></span><span><b>ML FORECASTING</b> <i>▲</i></span><span><b>PORTFOLIO THEORY</b> <i>▲</i></span><span><b>3-STATEMENT MODELS</b> <i>▲</i></span>
+    <span><b>DCF</b> <i>▲</i></span><span><b>LBO</b> <i>▲</i></span><span><b>COMPS</b> <i>▲</i></span><span><b>PYTHON</b> <i>▲</i></span><span><b>PANDAS</b> <i>▲</i></span><span><b>SQL</b> <i>▲</i></span><span><b>EXCEL / VBA</b> <i>▲</i></span><span><b>LLM APPS</b> <i>▲</i></span><span><b>RAG</b> <i>▲</i></span><span><b>ML FORECASTING</b> <i>▲</i></span><span><b>PORTFOLIO THEORY</b> <i>▲</i></span><span><b>3-STATEMENT MODELS</b> <i>▲</i></span>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <section class="item" id="about">
+    <div class="item-label"><strong>Item 1</strong>About</div>
+    <div class="prose">
+      <h2>Finance first, with code as a tool.</h2>
+      <p>I'm a finance student at [University] focused on [corporate finance / investment management / fintech]. I care about the fundamentals: how businesses make money, how they're valued, and how capital moves between them.</p>
+      <p>Alongside coursework, I build AI and data projects that apply those fundamentals. That includes models that read filings, tools that stress-test portfolios, and assistants that help analysts get to an answer faster. I like work where the numbers have to hold up in front of someone who will question them.</p>
+      <p>Outside class: [student investment fund, finance club, sport, or interest].</p>
+    </div>
+  </section>
+
+  <section class="item" id="projects">
+    <div class="item-label"><strong>Item 2</strong>Selected projects</div>
+    <div>
+      <h2>Projects</h2>
+      <div class="filters" role="group" aria-label="Filter projects">
+        <button type="button" class="chip" data-f="all" aria-pressed="true">All</button>
+        <button type="button" class="chip" data-f="ai" aria-pressed="false">AI / ML</button>
+        <button type="button" class="chip" data-f="fin" aria-pressed="false">Valuation &amp; modeling</button>
+        <button type="button" class="chip" data-f="quant" aria-pressed="false">Quant</button>
+      </div>
+
+      <div class="projects">
+        <article class="proj" data-cat="ai fin">
+          <div>
+            <div class="proj-meta"><span class="tag">AI / ML</span><span>[2026]</span></div>
+            <h3>10-K Analyst: an LLM assistant for SEC filings</h3>
+            <p>A retrieval-augmented assistant that answers questions about public companies using their 10-K and 10-Q filings, citing the exact section each answer comes from. Built to cut the time spent hunting through risk factors, segment data, and MD&amp;A.</p>
+            <ul class="stack"><li>Python</li><li>Claude API</li><li>SEC EDGAR</li><li>Embeddings</li><li>Streamlit</li></ul>
+          </div>
+          <dl class="kpis">
+            <div><dt>Filings indexed</dt><dd>[X]</dd></div>
+            <div><dt>Answer accuracy</dt><dd>[X]% on test set</dd></div>
+            <div><dt>Role</dt><dd>Solo build</dd></div>
+            <div class="links"><a href="#">[GitHub]</a><a href="#">[Demo]</a></div>
+          </dl>
+        </article>
+
+        <article class="proj" data-cat="fin">
+          <div>
+            <div class="proj-meta"><span class="tag">Valuation</span><span>[2026]</span></div>
+            <h3>[Company] DCF and comparable companies analysis</h3>
+            <p>A full three-statement model and discounted cash flow valuation of [Company], with a WACC build, sensitivity tables on terminal growth and discount rate, and a trading comps cross-check against [N] peers.</p>
+            <ul class="stack"><li>Excel</li><li>Capital IQ / FactSet</li><li>3-statement model</li></ul>
+          </div>
+          <dl class="kpis">
+            <div><dt>Implied price</dt><dd>$[XX.XX]</dd></div>
+            <div><dt>Upside vs. market</dt><dd>[X]%</dd></div>
+            <div><dt>Recommendation</dt><dd>[Buy / Hold]</dd></div>
+            <div class="links"><a href="#">[Model]</a><a href="#">[Write-up]</a></div>
+          </dl>
+        </article>
+
+        <article class="proj" data-cat="quant ai">
+          <div>
+            <div class="proj-meta"><span class="tag">Quant · ML</span><span>[2025]</span></div>
+            <h3>Earnings-call sentiment and next-day returns</h3>
+            <p>Scored earnings call transcripts with a language model and tested whether tone predicts next-day abnormal returns. Includes the event-study setup, out-of-sample results, and a plain-language note on what the signal can and can't tell you.</p>
+            <ul class="stack"><li>Python</li><li>pandas</li><li>scikit-learn</li><li>Event study</li></ul>
+          </div>
+          <dl class="kpis">
+            <div><dt>Sample</dt><dd>[N] calls</dd></div>
+            <div><dt>Period</dt><dd>[20XX–20XX]</dd></div>
+            <div><dt>Result</dt><dd>[finding]</dd></div>
+            <div class="links"><a href="#">[GitHub]</a><a href="#">[Paper]</a></div>
+          </dl>
+        </article>
+
+        <article class="proj" data-cat="quant">
+          <div>
+            <div class="proj-meta"><span class="tag">Quant</span><span>[2025]</span></div>
+            <h3>Portfolio optimizer and risk dashboard</h3>
+            <p>An interactive tool that builds mean-variance and risk-parity portfolios from a ticker list, then reports volatility, max drawdown, Sharpe ratio, and historical VaR against a benchmark.</p>
+            <ul class="stack"><li>Python</li><li>NumPy</li><li>yfinance</li><li>Plotly</li></ul>
+          </div>
+          <dl class="kpis">
+            <div><dt>Methods</dt><dd>MVO, risk parity</dd></div>
+            <div><dt>Risk metrics</dt><dd>Sharpe, VaR, MDD</dd></div>
+            <div><dt>Benchmark</dt><dd>S&amp;P 500</dd></div>
+            <div class="links"><a href="#">[GitHub]</a><a href="#">[Live app]</a></div>
+          </dl>
+        </article>
+
+        <article class="proj" data-cat="ai">
+          <div>
+            <div class="proj-meta"><span class="tag">AI / ML</span><span>[2025]</span></div>
+            <h3>Credit default classifier</h3>
+            <p>Trained and compared logistic regression, random forest, and gradient boosting models to predict loan default, with attention to class imbalance, interpretability (SHAP), and what a lender would actually do with the scores.</p>
+            <ul class="stack"><li>Python</li><li>XGBoost</li><li>SHAP</li><li>Jupyter</li></ul>
+          </div>
+          <dl class="kpis">
+            <div><dt>Best model</dt><dd>[model]</dd></div>
+            <div><dt>ROC-AUC</dt><dd>[0.XX]</dd></div>
+            <div><dt>Dataset</dt><dd>[source]</dd></div>
+            <div class="links"><a href="#">[GitHub]</a></div>
+          </dl>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="item" id="experience">
+    <div class="item-label"><strong>Item 3</strong>Experience</div>
+    <div>
+      <h2>Experience</h2>
+      <div class="roles">
+        <div class="role">
+          <time>[Jun–Aug 2026]</time>
+          <div>
+            <h3>[Finance Intern]</h3>
+            <div class="org">[Company] · [City]</div>
+            <ul>
+              <li>[Built / analyzed / automated something, with a number attached.]</li>
+              <li>[Second achievement, ideally showing finance and technical skills together.]</li>
+            </ul>
+          </div>
+        </div>
+        <div class="role">
+          <time>[2025–Present]</time>
+          <div>
+            <h3>[Analyst, Student Investment Fund]</h3>
+            <div class="org">[University]</div>
+            <ul>
+              <li>[Pitched N equities to the investment committee; X approved for the portfolio.]</li>
+              <li>[Covered the X sector; maintained models for N holdings.]</li>
+            </ul>
+          </div>
+        </div>
+        <div class="role">
+          <time>[2024–2025]</time>
+          <div>
+            <h3>[Role]</h3>
+            <div class="org">[Organization]</div>
+            <ul>
+              <li>[Leadership, part-time work, or a relevant club role.]</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="item" id="education">
+    <div class="item-label"><strong>Item 4</strong>Education &amp; skills</div>
+    <div>
+      <h2>Education &amp; skills</h2>
+      <div class="two">
+        <div>
+          <p style="margin:0 0 4px"><strong>[University]</strong></p>
+          <p style="margin:0 0 20px;color:var(--muted)">B.S. in Finance · [Minor in Computer Science / Data Analytics] · Expected [May 2028] · GPA [X.XX]</p>
+          <div class="table-wrap">
+            <table class="ledger">
+              <thead><tr><th>Relevant coursework</th><th class="num">Grade</th></tr></thead>
+              <tbody>
+                <tr><td>Corporate Finance</td><td class="num">[A]</td></tr>
+                <tr><td>Investments &amp; Portfolio Management</td><td class="num">[A]</td></tr>
+                <tr><td>Financial Accounting</td><td class="num">[A]</td></tr>
+                <tr><td>Econometrics / Statistics</td><td class="num">[A]</td></tr>
+                <tr><td>Machine Learning / Data Science</td><td class="num">[A]</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="skillset">
+          <div><h4>Finance</h4><p>Financial statement analysis, DCF, comparable companies, LBO basics, WACC, three-statement modeling, portfolio theory.</p></div>
+          <div><h4>Programming &amp; data</h4><p>Python (pandas, NumPy, scikit-learn), SQL, Excel and VBA, Jupyter, Git.</p></div>
+          <div><h4>AI</h4><p>LLM application development, retrieval-augmented generation, prompt design and evaluation, NLP for financial text.</p></div>
+          <div>
+            <h4>Certifications</h4>
+            <ul class="certs">
+              <li><span>[Bloomberg Market Concepts]</span><span>[2025]</span></li>
+              <li><span>[CFA Level I candidate / WSP / BIWS]</span><span>[2026]</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="item" id="research">
+    <div class="item-label"><strong>Item 5</strong>Research &amp; pitches</div>
+    <div>
+      <h2>Stock pitches &amp; writing</h2>
+      <div class="pitches">
+        <article class="pitch">
+          <div class="call"><span>[TICKER]</span><b>[LONG]</b></div>
+          <h3>[Pitch title]</h3>
+          <p>[One-line thesis: what the market is missing and why it matters.]</p>
+          <a href="#">[Read the pitch]</a>
+        </article>
+        <article class="pitch">
+          <div class="call"><span>[TICKER]</span><b>[LONG]</b></div>
+          <h3>[Pitch title]</h3>
+          <p>[One-line thesis, with catalyst and target price.]</p>
+          <a href="#">[Read the pitch]</a>
+        </article>
+        <article class="pitch">
+          <div class="call"><span>Essay</span><span>[2026]</span></div>
+          <h3>[How AI is changing equity research]</h3>
+          <p>[Short description of an article, case competition entry, or research paper.]</p>
+          <a href="#">[Read]</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="item contact" id="contact">
+    <div class="item-label"><strong>Item 6</strong>Contact</div>
+    <div>
+      <h2>Let's talk.</h2>
+      <p class="prose" style="margin:0 0 24px">I'm looking for [summer 2027 internships in investment banking, asset management, or fintech]. The fastest way to reach me is email.</p>
+      <dl class="channels">
+        <div><dt>Email</dt><dd><span id="email">[you@email.com]</span><button type="button" class="copy" data-copy="email">Copy</button></dd></div>
+        <div><dt>LinkedIn</dt><dd><a href="#">[linkedin.com/in/edwardgaston]</a></dd></div>
+        <div><dt>GitHub</dt><dd><a href="#">[github.com/edwardgaston]</a></dd></div>
+        <div><dt>Résumé</dt><dd><a href="#">[Link to PDF]</a></dd></div>
+      </dl>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Edward Gaston</span>
+    <a href="#top">Back to top ↑</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Draft note
+  var draft = document.getElementById('draft');
+  try { if (localStorage.getItem('eg-draft-hidden') === '1') draft.hidden = true; } catch (e) {}
+  document.getElementById('hideDraft').addEventListener('click', function () {
+    draft.hidden = true;
+    try { localStorage.setItem('eg-draft-hidden', '1'); } catch (e) {}
+  });
+
+  // Project filters
+  var chips = document.querySelectorAll('.chip');
+  var projs = document.querySelectorAll('.proj');
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () {
+      var f = c.dataset.f;
+      chips.forEach(function (x) { x.setAttribute('aria-pressed', x === c ? 'true' : 'false'); });
+      projs.forEach(function (p) {
+        p.hidden = !(f === 'all' || p.dataset.cat.split(' ').indexOf(f) > -1);
+      });
+    });
+  });
+
+  // Copy buttons
+  document.querySelectorAll('.copy').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.dataset.copy);
+      var text = el.textContent.trim();
+      function done() { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy'; }, 1600); }
+      function fallback() {
+        var r = document.createRange(); r.selectNodeContents(el);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        b.textContent = 'Selected';
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, fallback);
+      } else { fallback(); }
+    });
+  });
+})();
+</script>
+</body>
+</html>
